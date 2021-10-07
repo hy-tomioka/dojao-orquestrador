@@ -1,5 +1,6 @@
 package br.com.zup.dojaoorquestrator.kafka;
 
+import br.com.zup.dojaoorquestrator.kafka.message.TransacaoMessage;
 import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -22,7 +23,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, String> producerFactory() {
+    public ProducerFactory<String, TransacaoMessage> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
 
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
@@ -33,7 +34,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate() {
+    public KafkaTemplate<String, TransacaoMessage> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }
